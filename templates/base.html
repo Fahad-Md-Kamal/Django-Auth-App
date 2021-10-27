@@ -1,0 +1,41 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS -->
+    <link href="{% static 'vendor/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'custom/css/style.css' %}" rel="stylesheet">
+    <title>Auth App | {% block title %} {% endblock title %}</title>
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+
+
+    <div class="container my-2 main-container">
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-dismissible alert-{{ message.tags }}">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        {{ message }}
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+  
+
+    <div class="main-content">
+        {% block content %} {% endblock content %}
+    </div>
+
+    {% include 'footer.html' %}
+
+    <!-- JavaScripts -->
+    <script src="{% static 'vendor/js/bootstrap.bundle.min.js' %}" ></script>
+
+    <!-- If required scripts for specific pages -->
+    {% block scripts %} {% endblock scripts %}
+
+  </body>
+</html>

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Registration{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row col-md-6 offset-md-3 mt-5">
+        <h4 class="mb-2 font-weight-bold">{{form_name}}</h4>
+        <form action="" method="post">
+            {% csrf_token %}
+
+            {% if form.errors %}
+                {% for field in form %}
+                    {% if field.errors %}
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>{{ field.label }} Field Error : </strong>{{ field.errors|striptags }}
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            <label>{{ form.full_name.label }}<span class="text-muted small">
+                    (Required)</span></label>
+            {{ form.full_name }}
+            <label>
+                {{ form.email.label}}
+                <span class="text-muted small">(Required)</span>
+            </label>
+            {{ form.email }}
+
+            {% if form.phone %}
+            <label>{{ form.phone.label }}
+                <span class="text-muted small">(Required)</span></label>
+            {{ form.phone }}
+            {% endif %}
+
+            {% if form.password1 %}
+            <label>
+                {{ form.password1.label}}
+                <span class="text-muted mb-4"></span>
+            </label>
+
+            <small class="form-text text-muted mb-4 small">
+                At least 8 characters and 1 digit
+            </small>
+
+            {{ form.password1 }}
+            <label>{{ form.password2.label}}<span class="text-muted small">
+                    (Required)</span></label>
+            {{ form.password2 }}
+            {% endif %}
+
+            <div class="d-grid gap-2 mt-4">
+                <button class="btn btn-lg btn-primary" type="submit">Submit</button>
+            </div>
+
+            <p class="text-center">
+                <a href="{ url 'account:login' }">Already have an account?</a>
+            </p>
+
+        </form>
+    </div>
+</div>
+{% endblock content %}
