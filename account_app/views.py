@@ -81,7 +81,7 @@ def user_profile(request, pk):
     """
     user = get_object_or_404(UserBase, id=pk)
     
-    # Populate the form with user instance and requested data.
+    # Populate user update form with user instance and requested data.
     form = UserProfileUpdateForm(
         request.POST or None, 
         request.FILES or None, 
