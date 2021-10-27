@@ -10,10 +10,9 @@ def photo_path(instance, filename):
     """
     Modify Profile Image name and store it to desired folder
     """
-    user = instance.username
     _, file_extension = os.path.splitext(filename)
-    uid = uuid.uuid4().split('')
-    return f'{user}/{uid}{file_extension}'
+    uid = str(uuid.uuid4()).split('-')[-1]
+    return f'profile/{instance.pk}/{uid}{file_extension}'
 
 
 class UserBase(AbstractBaseUser, PermissionsMixin):
@@ -22,8 +21,8 @@ class UserBase(AbstractBaseUser, PermissionsMixin):
     """
     email = models.EmailField(max_length=255, unique=True)
     full_name = models.CharField(max_length=50)
-    phone = models.CharField(max_length=15, null=True, blank=True)
-    profile_image = models.ImageField(upload_to= photo_path, default='default-profile.png')
+    phone = models.CharField(max_length=15, null=True, blank=True, default='')
+    profile_image = models.ImageField(upload_to=photo_path, default='default-profile.png')
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)

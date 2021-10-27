@@ -110,10 +110,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'static' # Stores all static files to serve in production server
 STATICFILES_DIRS = [
     BASE_DIR / 'static_files', # Stores all static files to serve in development server
 ]
+
+LOGIN_REDIRECT_URL = 'user_auth_app:signin_view'
+LOGOUT_REDIRECT_URL = 'user_auth_app:signin_view'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'

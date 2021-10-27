@@ -4,11 +4,11 @@ from django.contrib.auth.models import BaseUserManager
 class CustomAccountManager(BaseUserManager):
 
     def create_user(self, email, password, full_name, **kwargs):
-        print(password)
         if not email:
             raise ValueError('You must provide an email address')
         email = self.normalize_email(email)
         user = self.model(email=email, full_name=full_name, **kwargs)
+        user.is_active = True
         user.set_password(password)
         try:
             user.save()
