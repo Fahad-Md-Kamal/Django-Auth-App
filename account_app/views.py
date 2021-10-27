@@ -1,8 +1,12 @@
-from django.shortcuts import (render, redirect, get_object_or_404)
+from django.shortcuts import (render,
+                              redirect,
+                              get_object_or_404)
 from django.contrib.auth import (authenticate, login)
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import ( UserSignupForm, UserProfileUpdateForm, UserLoginForm ) 
+from .forms import (UserSignupForm,
+                    UserProfileUpdateForm,
+                    UserLoginForm)
 from django.contrib.auth import logout
 
 from .models import UserBase
@@ -61,6 +65,9 @@ def user_login_view(request):
                         request, f'Welcome Back {user.full_name}!!')
                     # Redirect to their profile view.
                     return redirect(user.get_absolute_url())
+                else:
+                    messages.warning(
+                        request, f'Please provide a valid email/password')
             except:
                 messages.warning(
                     request, f'Sorry, Could not log you in. Please try again later.')
@@ -73,28 +80,29 @@ def user_login_view(request):
     }
     return render(request, 'account_app/login.html', context)
 
-
-@login_required(login_url='/sign-in/')
+# Redirect to Login Url if not registered
+@login_required(login_url='/')
 def user_profile(request, pk):
     """
     Handels user profile view functionality
     """
     user = get_object_or_404(UserBase, id=pk)
-    
+
     # Populate user update form with user instance and requested data.
     form = UserProfileUpdateForm(
-        request.POST or None, 
-        request.FILES or None, 
+        request.POST or None,
+        request.FILES or None,
         instance=user)
     if request.method == 'POST':
         try:
+            # If success save form data and show success message
             form.is_valid()
             form.save()
-            # If success 
             messages.success(
                 request, f'{user.full_name} your profile has been updated successfully!')
             return redirect(user.get_absolute_url())
         except:
+            # else return the form to profile page for valid input with error message.
             form = UserProfileUpdateForm(request.POST, request.FILES)
             messages.warning(
                 request, f'{user.full_name} sorry, Could not update your profile')
@@ -106,6 +114,9 @@ def user_profile(request, pk):
 
 
 def user_logout_view(request):
+    """
+    Logout User from the session
+    """
     logout(request)
     messages.warning(request, f'You have been logged out')
     return redirect('user_auth_app:signin_view')

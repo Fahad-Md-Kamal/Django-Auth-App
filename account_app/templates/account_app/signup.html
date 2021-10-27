@@ -35,7 +35,6 @@
             {{ form.phone }}
             {% endif %}
 
-            {% if form.password1 %}
             <label>
                 {{ form.password1.label}}
                 <span class="text-muted mb-4">(Required</span>
@@ -49,7 +48,6 @@
             <label>{{ form.password2.label}}<span class="text-muted small">
                     (Required)</span></label>
             {{ form.password2 }}
-            {% endif %}
 
             <div class="d-grid gap-2 mt-4">
                 <button class="btn btn-lg btn-primary" type="submit">Submit</button>

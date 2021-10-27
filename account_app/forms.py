@@ -30,7 +30,7 @@ class UserSignupForm(forms.ModelForm):
         password1 = str(self.cleaned_data.get("password1"))
         if len(password1) < 6:
             raise ValidationError(
-                "Password is too short, try 8 Characters Long Ones")
+                "Password is too short, try 6 Characters long")
         if not re.fullmatch(r'[A-Za-z0-9@#$%^&+=]{6,}', password1):
             raise ValidationError("Password is too simple, try Complex Ones")
         return password1
@@ -51,6 +51,7 @@ class UserSignupForm(forms.ModelForm):
         full_name = self.cleaned_data["full_name"]
         password = self.cleaned_data["password1"]
         if commit:
+            # if for is valid and commit is true than use model manager.
             user = Auth_User_Model.objects.create_user(
                 email=email,
                 full_name=full_name,

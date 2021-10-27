@@ -21,9 +21,10 @@ class UserAdmin(BaseUserAdmin):
     list_filter = ('is_staff',)
     list_editable = ('is_active', 'is_staff')
     fieldsets = (
-        ('Authentication Fields', {'fields': ('email', 'full_name', 'password',)}),
+        ('Authentication Fields', {
+         'fields': ('email', 'full_name', 'password',)}),
         ('Personal info', {'fields': ('phone',)}),
-        ('Permissions', {'fields': ('is_staff','is_active', 'is_superuser')}),
+        ('Permissions', {'fields': ('is_staff', 'is_active', 'is_superuser')}),
     )
     add_fieldsets = (
         (None, {
