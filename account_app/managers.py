@@ -4,7 +4,6 @@ from django.contrib.auth.models import BaseUserManager
 class CustomAccountManager(BaseUserManager):
 
     def create_user(self, email, password, full_name, **kwargs):
-        print(password)
         if not email:
             raise ValueError('You must provide an email address')
         email = self.normalize_email(email)
@@ -17,8 +16,8 @@ class CustomAccountManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, email, full_name,  password, **kwargs):
+    def create_superuser(self, email, password, full_name, **kwargs):
         kwargs.setdefault('is_staff', True)
         kwargs.setdefault('is_superuser', True)
         kwargs.setdefault('is_active', True)
-        return self.create_user(email, full_name, password, **kwargs)
+        return self.create_user(email, password, full_name, **kwargs)

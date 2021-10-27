@@ -38,11 +38,11 @@
             {% if form.password1 %}
             <label>
                 {{ form.password1.label}}
-                <span class="text-muted mb-4"></span>
+                <span class="text-muted mb-4">(Required</span>
             </label>
 
             <small class="form-text text-muted mb-4 small">
-                At least 8 characters and 1 digit
+                At least 6 characters
             </small>
 
             {{ form.password1 }}
@@ -56,7 +56,7 @@
             </div>
 
             <p class="text-center">
-                <a href="{ url 'account:login' }">Already have an account?</a>
+                <a href="{% url 'user_auth_app:signin_view' %}">Already have an account?</a>
             </p>
 
         </form>

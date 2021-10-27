@@ -11,7 +11,9 @@ admin.site.site_header = 'Authentication & Authorization Application'
 
 
 class UserAdmin(BaseUserAdmin):
-    # Forms to Create or Update Users from Admin Panel
+    """
+    Admin Panel's User list and detail view
+    """
     add_form = forms.UserSignupForm
     form = forms.UserUpdateAdminForm
 
@@ -21,7 +23,7 @@ class UserAdmin(BaseUserAdmin):
     fieldsets = (
         ('Authentication Fields', {'fields': ('email', 'full_name', 'password',)}),
         ('Personal info', {'fields': ('phone',)}),
-        ('Permissions', {'fields': ('is_staff','is_active')}),
+        ('Permissions', {'fields': ('is_staff','is_active', 'is_superuser')}),
     )
     add_fieldsets = (
         (None, {

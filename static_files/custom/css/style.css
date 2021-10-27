@@ -166,3 +166,7 @@
     font-size: 13px;
     color: #fff
 }
+
+.navbar-image img{
+    border-radius: 50%;
+}
